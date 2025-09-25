@@ -2,6 +2,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
+import { BooksModule } from './books/books.module';
+
 
 @Module({
   imports: [
@@ -19,7 +22,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         synchronize: true, // Auto-creates tables. Use with caution in production.
       }),
       inject: [ConfigService],
-    }),
+    }), AuthModule, BooksModule,
   ],
 })
 export class AppModule {}
