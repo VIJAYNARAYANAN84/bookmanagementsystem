@@ -19,7 +19,7 @@ import { BooksModule } from './books/book.module';
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: true, // Auto-creates tables. Use with caution in production.
+        synchronize: false, // Auto-creates tables. Use with caution in production.
       }),
       inject: [ConfigService],
     }), AuthModule, BooksModule,
