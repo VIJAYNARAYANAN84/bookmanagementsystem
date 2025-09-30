@@ -4,11 +4,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { BooksModule } from './books/book.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }), // Makes config available everywhere
+    ConfigModule.forRoot({ isGlobal: true }), 
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -19,10 +21,12 @@ import { BooksModule } from './books/book.module';
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: false, // Auto-creates tables. Use with caution in production.
+        synchronize: false, 
       }),
       inject: [ConfigService],
     }), AuthModule, BooksModule,
   ],
+    controllers: [AppController],   
+    providers: [AppService],
 })
 export class AppModule {}
